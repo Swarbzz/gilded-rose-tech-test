@@ -14,8 +14,13 @@ describe GildedRose do
       expect{ GildedRose.new(items).update_quality() }.to change{ items[0].quality }
     end
 
+    it 'sell_in decreases by 1' do
+      items = [Item.new("a gilded rose", 5, 10)]
+      expect{ GildedRose.new(items).update_quality() }.to change{ items[0].sell_in }.by -1
+    end
+
     it 'degrades faster when the sell-by date has past, at least twice as fast you might say' do
-      items = [Item.new("a gilded rose", -5, 10)]
+      items = [Item.new("a gilded rose", -1, 10)]
       GildedRose.new(items).update_quality()
       expect(items[0].quality).to eq(8)
     end
@@ -26,7 +31,7 @@ describe GildedRose do
       50.times do
         store.update_quality()
       end
-      expect(items[0].quality).not_to eq -1
+      expect(items[0].quality).to eq 0
     end
 
     it 'aged brie does not degrade' do
@@ -34,6 +39,7 @@ describe GildedRose do
       GildedRose.new(items).update_quality()
       expect(items[0].quality).to eq 1
     end
+    #DD TEST FOR QUALITY INCREASING BY TWO AFTER SELL_IN FOR BRIE
 
     it 'Aged brie increases in quality over time' do
       items = [Item.new("Aged Brie", 2, 6)]
@@ -41,7 +47,7 @@ describe GildedRose do
       expect(items[0].quality).to be > 6
     end
 
-    it 'Aged Brie increase in quality by 1' do
+    it 'Aged Brie increase in quality by 1 when sell_in is still valid' do
       items = [Item.new("Aged Brie", 2, 6)]
       GildedRose.new(items).update_quality()
       expect(items[0].quality).to be 7
@@ -50,10 +56,10 @@ describe GildedRose do
     it 'An items quality cannot be above 50' do
       items = [Item.new("Aged Brie", 2, 48)]
       store = GildedRose.new(items)
-      4.times do
+      50.times do
         store.update_quality()
       end
-      expect(items[0].quality).not_to eq 52
+      expect(items[0].quality).to eq 50
     end
 
     it 'Sulfuras never changes its quality' do
