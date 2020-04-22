@@ -19,6 +19,16 @@ describe GildedRose do
       GildedRose.new(items).update_quality()
       expect(items[0].quality).to eq(8)
     end
+
+    it 'does not degrade the quality to be below 0' do
+      items = [Item.new("a gilded rose", -5, 10)]
+      store = GildedRose.new(items)
+      50.times do
+        store.update_quality()
+      end
+      expect(items[0].quality).not_to eq(-1)
+      p items[0].quality
+    end
   end
 
 end
