@@ -43,9 +43,9 @@ describe GildedRose do
       end
 
       it 'aged brie does not degrade' do
-        items = [Item.new("Aged Brie", 2, 0)]
+        items = [Item.new("Aged Brie", 2, 1)]
         GildedRose.new(items).update_quality()
-        expect(items[0].quality).to eq 1
+        expect(items[0].quality).to eq 2
       end
 
       it 'Aged brie increases in quality over time' do

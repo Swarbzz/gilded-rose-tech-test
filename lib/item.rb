@@ -12,11 +12,17 @@ class Item
   end
 
   def update_quality(amount)
-    self.quality += amount
+    if is_in_quality_range?
+      self.quality += amount
+    end
   end
 
   def update_sell_in(amount)
-    self.sell_in -= amount
+    self.sell_in += amount
+  end
+
+  def is_in_quality_range?
+    self.quality > 0 && self.quality < 50
   end
 
   def is_aged_brie?
