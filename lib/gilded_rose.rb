@@ -11,35 +11,35 @@ class GildedRose
         if !item.is_aged_brie? and !item.is_backstage_passes?
           if item.quality > 0
             if !item.is_sulfuras?
-              item.quality = item.quality - 1
+              item.update_quality(-1)
             end
           end
         else
           if item.quality < 50
-            item.quality = item.quality + 1
+            item.update_quality(1)
             if item.is_backstage_passes?
               if item.sell_in < 11
                 if item.quality < 50
-                  item.quality = item.quality + 1
+                  item.update_quality(1)
                 end
               end
               if item.sell_in < 6
                 if item.quality < 50
-                  item.quality = item.quality + 1
+                  item.update_quality(1)
                 end
               end
             end
           end
         end
         if !item.is_sulfuras?
-          item.sell_in = item.sell_in - 1
+          item.update_sell_in(1)
         end
         if item.sell_in < 0
           if !item.is_aged_brie?
             if !item.is_backstage_passes?
               if item.quality > 0
                 if !item.is_sulfuras?
-                  item.quality = item.quality - 1
+                  item.update_quality(-1)
                 end
               end
             else
@@ -47,7 +47,7 @@ class GildedRose
             end
           else
             if item.quality < 50
-              item.quality = item.quality + 1
+              item.update_quality(1)
             end
           end
         end

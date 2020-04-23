@@ -11,6 +11,14 @@ class Item
     "#{@name}, #{@sell_in}, #{@quality}"
   end
 
+  def update_quality(amount)
+    self.quality += amount
+  end
+
+  def update_sell_in(amount)
+    self.sell_in -= amount
+  end
+
   def is_aged_brie?
     self.name == "Aged Brie"
   end
