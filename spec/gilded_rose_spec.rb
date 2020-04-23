@@ -1,4 +1,5 @@
 require 'gilded_rose'
+require './lib/item'
 
 describe GildedRose do
 
