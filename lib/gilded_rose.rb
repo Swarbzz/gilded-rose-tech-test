@@ -13,23 +13,28 @@ class GildedRose
       @items.each do |item|
         update_sell_in(item, -1) unless is_sulfuras?(item)
         new_quality(item, -1) unless is_unique?(item)
+
         if is_unique?(item)
-          new_quality(item, 1)
+          new_quality(item, -2) if is_conjured?(item)
+          new_quality(item, 1) if is_aged_brie?(item) || is_backstage_passes?(item) || is_sulfuras?(item)
           new_quality(item, 1) if is_backstage_passes?(item) && item.sell_in < 11
           new_quality(item, 1) if is_backstage_passes?(item) && item.sell_in < 6
         end
+
         if item.sell_in < MIN_QUALITY_LIMIT
           new_quality(item, -1) unless is_unique?(item)
+          new_quality(item, -2) if is_conjured?(item)
           new_quality(item, 1) if is_aged_brie?(item)
           item.quality = MIN_QUALITY_LIMIT if is_backstage_passes?(item)
         end
+
       end
     end
 
     private
 
     def is_unique?(item)
-      is_aged_brie?(item) || is_backstage_passes?(item) || is_sulfuras?(item)
+      is_aged_brie?(item) || is_backstage_passes?(item) || is_sulfuras?(item) || is_conjured?(item)
     end
   
     def new_quality(item, amount)
@@ -56,6 +61,10 @@ class GildedRose
   
     def is_backstage_passes?(item)
       item.name == "Backstage passes to a TAFKAL80ETC concert"
+    end
+
+    def is_conjured?(item)
+      item.name == "Conjured"
     end
 end
   

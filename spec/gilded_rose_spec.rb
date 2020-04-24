@@ -108,6 +108,22 @@ describe GildedRose do
         expect(items[0].quality).to be 0
       end
     end
+
+    context 'when an item is conjured' do
+
+      it "goes down in quality by 2 when sell_in > 0" do
+        items = [Item.new("Conjured", 4, 10)]
+        GildedRose.new(items).update_quality
+        expect(items[0].quality).to be 8
+      end
+
+      it "goes down in quality by 4 when sell_in < 0" do
+        items = [Item.new("Conjured", -1, 10)]
+        GildedRose.new(items).update_quality
+        expect(items[0].quality).to be 6
+      end
+    end
+
   end
 
 end
