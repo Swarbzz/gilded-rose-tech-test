@@ -12,21 +12,16 @@ class GildedRose
     def update_quality
       @items.each do |item|
         update_sell_in(item, -1) unless is_sulfuras?(item)
+        new_quality(item, -1) unless is_unique?(item)
         if is_unique?(item)
           new_quality(item, 1)
           new_quality(item, 1) if is_backstage_passes?(item) && item.sell_in < 11
           new_quality(item, 1) if is_backstage_passes?(item) && item.sell_in < 6
         end
         if item.sell_in < MIN_QUALITY_LIMIT
-          if is_aged_brie?(item)
-            new_quality(item, 1)
-          else
-            if is_backstage_passes?(item) || is_sulfuras?(item)
-              item.quality = MIN_QUALITY_LIMIT
-            else
-            new_quality(item, - 3)
-            end
-          end
+          new_quality(item, -1) unless is_unique?(item)
+          new_quality(item, 1) if is_aged_brie?(item)
+          item.quality = MIN_QUALITY_LIMIT if is_backstage_passes?(item)
         end
       end
     end
@@ -34,7 +29,7 @@ class GildedRose
     private
 
     def is_unique?(item)
-      is_aged_brie?(item) || !is_backstage_passes?(item) || !is_sulfuras?(item)
+      is_aged_brie?(item) || is_backstage_passes?(item) || is_sulfuras?(item)
     end
   
     def new_quality(item, amount)
