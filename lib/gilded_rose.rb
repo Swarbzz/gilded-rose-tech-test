@@ -2,6 +2,9 @@ require_relative 'item'
 
 class GildedRose
 
+  MAX_QUALITY_LIMIT = 50
+  MIN_QUALITY_LIMIT = 0
+
     def initialize(items)
       @items = items
     end
@@ -20,12 +23,12 @@ class GildedRose
         else
           new_quality(item, -1)
         end
-        if item.sell_in < 0
+        if item.sell_in < MIN_QUALITY_LIMIT
           if is_aged_brie?(item)
             new_quality(item, 1)
           else
             if is_backstage_passes?(item) || is_sulfuras?(item)
-              item.quality = item.quality - item.quality
+              item.quality = MIN_QUALITY_LIMIT
             else
             new_quality(item, - 3)
             end
@@ -35,10 +38,6 @@ class GildedRose
     end
 
     private
-
-    def sell_in_passed?
-      item.sell_in < 0
-    end
   
     def new_quality(item, amount)
       if is_in_quality_range?(item)
@@ -51,7 +50,7 @@ class GildedRose
     end
   
     def is_in_quality_range?(item)
-      item.quality > 0 && item.quality < 50
+      item.quality > MIN_QUALITY_LIMIT && item.quality < MAX_QUALITY_LIMIT
     end
   
     def is_aged_brie?(item)
