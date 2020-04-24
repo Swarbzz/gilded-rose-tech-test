@@ -4,6 +4,8 @@ class GildedRose
 
   MAX_QUALITY_LIMIT = 50
   MIN_QUALITY_LIMIT = 0
+  PASS_FIRST_STRIKE = 11
+  PASS_SECOND_STRIKE = 6
 
     def initialize(items)
       @items = items
@@ -17,8 +19,8 @@ class GildedRose
         if is_unique?(item)
           new_quality(item, -2) if is_conjured?(item)
           new_quality(item, 1) if is_aged_brie?(item) || is_backstage_passes?(item) || is_sulfuras?(item)
-          new_quality(item, 1) if is_backstage_passes?(item) && item.sell_in < 11
-          new_quality(item, 1) if is_backstage_passes?(item) && item.sell_in < 6
+          new_quality(item, 1) if is_backstage_passes?(item) && item.sell_in < PASS_FIRST_STRIKE
+          new_quality(item, 1) if is_backstage_passes?(item) && item.sell_in < PASS_SECOND_STRIKE
         end
 
         if item.sell_in < MIN_QUALITY_LIMIT

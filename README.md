@@ -1,6 +1,41 @@
-# gilded-rose-tech-test
-# Gilded rose tech test
+# Gilded Rose Tech Test
 
+A practice test given to me during my time at Maker's Academy. It focuses on refactoring messy code and writing lots of tests to provide good TDD. 
+
+## What the code does
+
+The code simulated a store with goods, some of them unique. Please see the bottom half of the README to see the requirements of certain goods. 
+
+## Approach
+
+I began by staring intently at the screen, looking at the mess of coding in front of me and trying to figure out what on earth it was doing. After reading the README provided and having my eyes nearly bleed, i was able to understand what was going on and start writing out tests. 
+
+After i was satified with all my tests and simplcov informed me of a high coverage i was able to safetly start refactoring the code to be sure not to break it at the same time. 
+
+## How to install 
+
+From your command line, please copy the below
+
+```ruby
+git clone git@github.com:Swarbzz/gilded-rose-tech-test.git
+```
+Then run bundle install
+
+```ruby
+bundle install
+```
+
+## How to use through irb
+
+```ruby
+$ require "./lib/gilded_rose.rb"
+$ item_1 = Item.new("Conjured", 14, 34)
+$ item_2 = Item.new("A Gilded Rose", 15, 40)
+$ items = [item_1, item_2]
+$ gilded_rose = GildedRose.new(items)
+$ gilded_rose.update_quality
+```
+# Original Task
 This is a well known kata developed by [Terry Hughes](http://iamnotmyself.com/2011/02/13/refactor-this-the-gilded-rose-kata/). This is commonly used as a tech test to assess a candidate's ability to read, refactor and extend legacy code. 
 
 Here is the text of the kata:
