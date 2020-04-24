@@ -25,6 +25,12 @@ Then run bundle install
 bundle install
 ```
 
+Then run rspec to see the passing tests and coverage
+
+```ruby
+rspec
+```
+
 ## How to use through irb
 
 ```ruby
